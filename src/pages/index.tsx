@@ -1,12 +1,14 @@
-import Welcome from 'components/common/welcome'
-import PageLayout from 'components/layout/page'
+import dynamic from 'next/dynamic'
+
+const SuziCanvas = dynamic(
+  () => import('../components/sections/home/suzi-canvas'),
+  {
+    ssr: false
+  }
+)
 
 const HomePage = () => {
-  return (
-    <PageLayout>
-      <Welcome />
-    </PageLayout>
-  )
+  return <SuziCanvas />
 }
 
 export default HomePage
