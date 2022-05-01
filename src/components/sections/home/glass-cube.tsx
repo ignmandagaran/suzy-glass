@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber'
 import { EffectComposer } from '@react-three/postprocessing'
@@ -9,11 +9,13 @@ import {
   OrbitControls
 } from '@react-three/drei'
 import { useMedia } from 'hooks/use-media'
+import { a, useSpring, config } from '@react-spring/three'
 
 extend({ OrbitControls })
 
 const Cube = () => {
   const ref = useRef<THREE.Mesh>(null)
+  const [active, setActive] = useState(false)
   const { viewport } = useThree()
   const cubeSize = (0.6 * viewport.width) / 2
   const envMap = useCubeTexture(Array(6).fill('g.jpeg'), {
@@ -34,6 +36,26 @@ const Cube = () => {
     transparent: true
   }
 
+  const { scale } = useSpring({
+    scale: active ? 1 : 0.2,
+    config: { ...config.molasses }
+  })
+
+  const { opacity } = useSpring({
+    opacity: active ? 1 : 0,
+    config: {
+      mass: 6.5,
+      tension: 173,
+      friction: 45,
+      precision: 0,
+      velocity: 0.001
+    }
+  })
+
+  useLayoutEffect(() => {
+    setActive(true)
+  }, [])
+
   useFrame(() => {
     if (!ref.current) return
     ref.current.rotation.y += 0.0035
@@ -41,10 +63,11 @@ const Cube = () => {
   })
 
   return (
-    <mesh
+    <a.mesh
       ref={ref}
       position={[0, 0, 0]}
       rotation={[0.69, 0.69, 0.14]}
+      scale={scale}
       castShadow
     >
       <group>
@@ -53,7 +76,9 @@ const Cube = () => {
           radius={cubeSize / 50}
           smoothness={10}
         >
-          <meshPhysicalMaterial
+          {/* @ts-ignore */}
+          <a.meshPhysicalMaterial
+            opacity={opacity}
             envMap={envMap}
             {...materialProps}
             color="#fee0f5"
@@ -65,7 +90,8 @@ const Cube = () => {
           radius={cubeSize / 25}
           smoothness={10}
         >
-          <meshPhysicalMaterial
+          <a.meshPhysicalMaterial
+            opacity={opacity}
             envMap={envMap}
             {...materialProps}
             color="#000"
@@ -73,7 +99,7 @@ const Cube = () => {
           />
         </RoundedBox>
       </group>
-    </mesh>
+    </a.mesh>
   )
 }
 
