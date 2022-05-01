@@ -21,8 +21,11 @@
   },
   "dependencies": {
     "@radix-ui/react-polymorphic": "^0.0.13",
-    "@react-three/drei": "^4.3.3",
-    "@react-three/fiber": "^6.0.21",
+    "@react-spring/three": "^9.2.4",
+    "@react-three/cannon": "^3.1.2",
+    "@react-three/drei": "^7.12.5",
+    "@react-three/fiber": "^7.0.7",
+    "@react-three/postprocessing": "^2.0.5",
     "clsx": "^1.1.1",
     "leva": "^0.9.14",
     "mousetrap": "^1.6.5",
@@ -31,7 +34,7 @@
     "react": "^17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.2",
-    "three": "^0.127.1"
+    "three": "^0.132.2"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.1.2",

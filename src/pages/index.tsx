@@ -1,14 +1,7 @@
-import dynamic from 'next/dynamic'
-
-const SuziCanvas = dynamic(
-  () => import('../components/sections/home/suzi-canvas'),
-  {
-    ssr: false
-  }
-)
+import CubeCanvas from 'components/sections/home/glass-cube'
 
 const HomePage = () => {
-  return <SuziCanvas />
+  return <CubeCanvas />
 }
 
 export default HomePage
