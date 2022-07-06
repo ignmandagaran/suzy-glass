@@ -40,7 +40,7 @@
     "@next/bundle-analyzer": "^11.1.2",
     "@types/css-font-loading-module": "^0.0.6",
     "@types/mousetrap": "^1.6.8",
-    "@types/node": "^16.9.4",
+    "@types/node": "^18.0.3",
     "@types/react": "^17.0.22",
     "@types/react-dom": "^17.0.6",
     "@types/three": "^0.132.1",
